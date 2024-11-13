@@ -1,0 +1,10 @@
+<div class="staff-container">
+    <div class="staff-member" *ngFor="let member of staffMembers">
+      <img [src]="member.photo" alt="{{ member.name }}" class="staff-photo" />
+      <h3 class="staff-name">{{ member.name }}</h3>
+      <h3 class="staff-role">{{ member.role }}</h3>
+      <p class="staff-description">{{ member.description }}</p>
+      <p class="staff-info">{{ member.info }}</p>
+      
+</div>
+</div>

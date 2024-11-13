@@ -18,6 +18,7 @@ import { FileUploadModule } from 'ng2-file-upload'
 import { SlideshowModule } from 'ng-simple-slideshow'
 import { AppComponent } from './app.component'
 import { AboutComponent } from './about/about.component'
+import { StaffComponent } from './staff/staff.component';
 import { AdministrationComponent } from './administration/administration.component'
 import { BasketComponent } from './basket/basket.component'
 import { LoginComponent } from './login/login.component'
@@ -147,6 +148,7 @@ export function HttpLoaderFactory (http: HttpClient) {
   declarations: [
     AppComponent,
     AboutComponent,
+    StaffComponent,
     AdministrationComponent,
     BasketComponent,
     LoginComponent,

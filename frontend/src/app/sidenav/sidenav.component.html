@@ -214,6 +214,14 @@
       {{"TITLE_ABOUT" | translate}}
     </span>
   </a>
+  <a mat-list-item routerLink="/staff" (click)="onToggleSidenav()" aria-label="Go to staff page">
+    <i class="material-icons">
+      person
+    </i>
+    <span class="menu-text truncate">
+      {{"TITLE_STAFF" | translate}}
+    </span>
+  </a>
   <a mat-list-item routerLink="/photo-wall" (click)="onToggleSidenav()" aria-label="Go to photo wall">
     <i class="material-icons">
       camera

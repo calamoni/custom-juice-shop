@@ -42,6 +42,7 @@ import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
+import { StaffComponent } from './staff/staff.component';
 
 const loadFaucetModule = async () => {
   const module = await import('./faucet/faucet.module')
@@ -67,6 +68,10 @@ const routes: Routes = [
     path: 'accounting',
     component: AccountingComponent,
     canActivate: [AccountingGuard]
+  },
+  {
+    path: 'staff', // New route for the staff page
+    component: StaffComponent
   },
   {
     path: 'about',
