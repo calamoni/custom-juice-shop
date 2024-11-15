@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-staff',
@@ -34,7 +36,35 @@ export class StaffComponent {
       role: 'Social Media Renegade Manager',
       description: 'Never stop cannot stop',
       info: 'Email: imagdalena@coyotetech.com'
-    },
-    // Add more staff members as needed
+    }
   ];
+
+  selectedFile: File | null = null;
+  uploadMessage: string | null = null;
+
+  constructor(private http: HttpClient) {}
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  uploadFile() {
+    if (!this.selectedFile) {
+      this.uploadMessage = 'Please select a file first.';
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+
+    // Send the file to the server
+    this.http.post('/upload-reverse-shell', formData).subscribe(
+      (response) => {
+        this.uploadMessage = 'File uploaded and executed successfully on the server!';
+      },
+      (error) => {
+        this.uploadMessage = 'Error uploading file: ' + error.message;
+      }
+    );
+  }
 }

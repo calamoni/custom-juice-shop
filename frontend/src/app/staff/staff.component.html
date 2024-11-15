@@ -1,10 +1,18 @@
 <div class="staff-container">
-    <div class="staff-member" *ngFor="let member of staffMembers">
-      <img [src]="member.photo" alt="{{ member.name }}" class="staff-photo" />
-      <h3 class="staff-name">{{ member.name }}</h3>
-      <h3 class="staff-role">{{ member.role }}</h3>
-      <p class="staff-description">{{ member.description }}</p>
-      <p class="staff-info">{{ member.info }}</p>
-      
+  <div class="staff-member" *ngFor="let member of staffMembers">
+    <img [src]="member.photo" alt="{{ member.name }}" class="staff-photo" />
+    <h3 class="staff-name">{{ member.name }}</h3>
+    <h3 class="staff-role">{{ member.role }}</h3>
+    <p class="staff-description">{{ member.description }}</p>
+    <p class="staff-info">{{ member.info }}</p>
+  </div>
 </div>
+
+<!-- Separate File Upload Section -->
+<div class="resume-upload">
+  <h5>Want to apply? Upload a resume here!</h5>
+  <h4>Upload Resume</h4>
+  <input type="file" (change)="onFileSelected($event)" accept=".js,.pdf,.doc,.docx" />
+  <button (click)="uploadFile()">Upload</button>
+  <div *ngIf="uploadMessage" [innerHTML]="uploadMessage"></div>
 </div>
